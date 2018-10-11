@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="acquisition_offer_form_view">
+            <field name="name">acquisition.offer.form</field>
+            <field name="model">acquisition.offer</field>
+            <field name="arch" type="xml">
+                <form string="Acquisition Offer">
+                    <header>
+                        <button name="submit" type="object" class="btn-primary" string="Submit" states="new"/>
+                        <button name="approve" type="object" class="btn-primary" string="Approve" states="submit"/>
+                        <button name="decline" type="object" string="Decline" states="submit"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve"/>                       
+                    </header>
+                    <sheet>
+                        <group name="general">
+                            <group>
+                                <field name="acq_plan_id"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="submission_date"/>
+                            </group>
+                        </group>
+                        <separator string="Description"/>
+                        <field name="description" placeholder="Click to add description"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" help="Follow this document to automatically track the events associated to lines of this document." groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    
+        <record model="ir.ui.view" id="acquisition_offer_search_view">
+            <field name="name">acquisition.offer.search</field>
+            <field name="model">acquisition.offer</field>
+            <field name="arch" type="xml">
+                <search string="Search Acquisition Offer">
+                    <field name="acq_plan_id"/>
+                    <field name="partner_id"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_acq_plan" string="Acquisition Plan" context="{'group_by': 'acq_plan_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    
+        <record model="ir.ui.view" id="acquisition_offer_tree_view">
+            <field name="name">acquisition.offer.tree</field>
+            <field name="model">acquisition.offer</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="state == 'decline'" string="Acquisition Offers">
+                    <field name="state" invisible="1"/>
+                    <field name="acq_plan_id"/>
+                    <field name="partner_id"/>
+                    <field name="submission_date"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="acquisition_plan_offers_act_window">
+            <field name="name">Offers</field>
+            <field name="res_model">acquisition.offer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="acquisition_offer_search_view"/>
+            <field name="context">{'default_acq_plan_id': active_id}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Here, you can add new acquisition offers
+                </p>
+                <p>
+                    You can now manage and organize your offers for the selected acquisition plan.
+                </p>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

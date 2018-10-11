@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="sign_acquisition_plan_form_view">
+            <field name="name">sign.acquisition.plan.form</field>
+            <field name="model">sign.acquisition.plan</field>
+            <field name="arch" type="xml">
+                <form string="Sign Acquisition Plan">
+                    <group name="signature">
+                        <h1><field name="member_id" nolabel="1"/></h1>
+                        <field name="signature" widget="signature" nolabel="1"/>
+                    </group>
+                </form>
+                <footer>
+                    <button name="sign_acquisition_plan" type="object" class="btn-primary" string="Sign"/>
+                    or
+                    <button name="cancel" special="cancel" string="Cancel"/>                       
+                </footer>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

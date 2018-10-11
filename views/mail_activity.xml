@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+    
+        <record model="ir.ui.view" id="mail_activity_signature_form_view">
+            <field name="name">mail.activity.signature.form</field>
+            <field name="model">mail.activity</field>
+            <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+            <field name="arch" type="xml">
+                <xpath expr="//footer" position="before">
+                    <group string="Signature" attrs="{'invisible': [('res_model', '!=', 'acquisition.plan')]}">
+                        <field name="signature" widget="signature"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+</odoo>

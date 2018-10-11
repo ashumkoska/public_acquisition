@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+    
+        <record model="ir.actions.act_window" id="acquisition_plan_act_window">
+            <field name="name">Acquisition Plan</field>
+            <field name="res_model">acquisition.plan</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Here, you can add new acquisition plans
+                </p>
+                <p>
+                    You can now manage and organize your full acquisition plan workflows.
+                </p>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="acquisition_item_type_act_window">
+            <field name="name">Acquisition Item Types</field>
+            <field name="res_model">acquisition.plan.line.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="acquisition_offer_act_window">
+            <field name="name">Acquisition Offers</field>
+            <field name="res_model">acquisition.offer</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="acquisition_offer_search_view"/>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_group_acq_plan': 1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Here, you can add new acquisition offers
+                </p>
+                <p>
+                    You can now manage and organize your offers for the corresponding acquisition plans.
+                </p>
+            </field>
+        </record>
+        
+        <record model="ir.ui.menu" id="public_acquisition_main_menu">
+            <field name="name">Public Acquisitions</field>
+        </record>
+        
+        <record model="ir.ui.menu" id="public_acquisition_menu">
+            <field name="name">Public Acquisitions</field>
+            <field name="parent_id" ref="public_acquisition_main_menu"/>
+            <field name="sequence" eval="5"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="acquisition_plan_menu">
+            <field name="name">Acquisition Plans</field>
+            <field name="parent_id" ref="public_acquisition_menu"/>
+            <field name="action" ref="acquisition_plan_act_window"/>
+            <field name="sequence" eval="5"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="acquisition_offer_menu">
+            <field name="name">Acquisition Offers</field>
+            <field name="parent_id" ref="public_acquisition_menu"/>
+            <field name="action" ref="acquisition_offer_act_window"/>
+            <field name="sequence" eval="10"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="public_acquisition_config_menu">
+            <field name="name">Configuration</field>
+            <field name="parent_id" ref="public_acquisition_main_menu"/>
+            <field name="sequence" eval="10"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="acquisition_item_type_menu">
+            <field name="name">Acquisition Item Types</field>
+            <field name="parent_id" ref="public_acquisition_config_menu"/>
+            <field name="action" ref="acquisition_item_type_act_window"/>
+            <field name="sequence" eval="5"/>
+        </record>
+        
+    </data>
+</odoo>
