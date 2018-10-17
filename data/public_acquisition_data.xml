@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+    
+        <record id="acq_plan_complaint_expired_cron" model="ir.cron">
+            <field name="name">Acquisition Plan: Complaint Deadline Expired</field>
+            <field name="model_id" ref="model_acquisition_plan"/>
+            <field name="state">code</field>
+            <field name="code">model.acq_plan_complaint_expired()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    
+    </data>
+</odoo>

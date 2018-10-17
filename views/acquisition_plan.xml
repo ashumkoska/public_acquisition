@@ -15,16 +15,17 @@
                         <button name="decision" type="object" class="btn-primary" string="Decision" states="offers,auction"/>
                         <button name="submit_to_commision" type="object" class="btn-primary" string="Submit to Commission" states="decision"/>
                         <!-- button name="approve" type="object" class="btn-primary" string="Approve" states="decision"/ -->
-                        <button name="cancel" type="object" string="Cancel" states="draft,submit,offers,auction,decision,approve,archive"/>
+                        <button name="cancel" type="object" string="Cancel" states="draft,submit,offers,auction,decision,waiting,approve,archive"/>
+                        <!-- TODO: dali se isprakja vo arhiva bez razlika dali e potvrden ili odbien od komisijata? -->
                         <button name="archive" type="object" class="btn-primary" string="Send to Archive" states="approve"/>
-                        <button name="complaint" type="object" string="Complaint" states="cancel"/>
+                        <button name="complaint" type="object" string="Complaint" states="cancel,archive"/>
                         <button name="contract" type="object" class="btn-primary" string="Contract" states="archive,complaint"/>
                         <button name="done" type="object" string="Done" class="btn-primary" states="contract"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,submit,decision,approve,contract,done"/>                       
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button class="oe_stat_button" type="action"
+                            <button class="oe_stat_button" type="action" attrs="{'invisible': [('state', 'in', ['draft', 'submit'])]}"
                                 name="%(public_acquisition.acquisition_plan_offers_act_window)d" icon="fa-folder-open-o">
                                 <field string="Offers" name="offers_count" widget="statinfo"/>
                             </button>
@@ -39,7 +40,8 @@
                             </group>
                             <group>
                                 <field name="currency_id"/>
-                                <field name="complaint_deadline" attrs="{'invisible': [('state', 'not in', ['cancel'])]}"/>
+                                <field name="complaint_deadline" attrs="{'invisible': [('state', 'not in', ['complaint'])]}"/>
+                                <field name="state_before_complaint" invisible="1"/>
                             </group>
                         </group>
                         <notebook>

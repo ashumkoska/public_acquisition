@@ -15,6 +15,7 @@
         'web_digital_sign'
     ],
     'data': [
+        'data/public_acquisition_data.xml',
         'views/acquisition_offer.xml',
         'views/acquisition_plan.xml',
         'views/commission_member.xml',

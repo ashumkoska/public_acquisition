@@ -20,9 +20,10 @@ class AcquisitionPlan(models.Model):
     estimated_budget = fields.Monetary(string='Total Estimated Budget', compute='compute_estimated_budget', store=True,
                                        track_visibility='always')
     description = fields.Html(string='Technical Specification')
-    # TODO: moze da bide i broj na denovi, pa avtomatski datumot da se presmeta otkako ke se potvrdi planot
     plan_date = fields.Date(string='Date', default=fields.Date.today())
+    # TODO: moze da bide i broj na denovi, pa avtomatski datumot da se presmeta otkako ke se potvrdi planot
     complaint_deadline = fields.Date(string='Complaint Deadline')
+    state_before_complaint = fields.Char(string='State Before Complaint', readonly=True)
     state = fields.Selection([('draft', 'Draft'), 
                               ('submit', 'Submitted'), 
                               ('offers', 'Offers'), 
@@ -34,7 +35,7 @@ class AcquisitionPlan(models.Model):
                               ('archive', 'Archive'), 
                               ('complaint', 'Complaint'), 
                               ('contract', 'Contract'), 
-                              ('done', 'Done')], string='Status', default='draft')
+                              ('done', 'Done')], string='Status', default='draft', track_visibility='on_change')
     color = fields.Integer(string='Color Index')
     # attachment_ids = fields.One2many('ir.attachment', compute='compute_attachment_ids', string='Main Attachments',
     #                                  help="Attachment that don't come from message.")
@@ -92,7 +93,10 @@ class AcquisitionPlan(models.Model):
     @api.multi
     def complaint(self):
         for rec in self:
-            rec.write({'state': 'complaint'})
+            rec.write({
+                'state_before_complaint': rec.state,
+                'state': 'complaint'
+            })
             
     @api.multi
     def contract(self):
@@ -129,6 +133,17 @@ class AcquisitionPlan(models.Model):
                     'activity_id': activity_id.id
                 })
             rec.write({'state': 'waiting'})
+            
+    @api.model
+    def acq_plan_complaint_expired(self):
+        active_plans = self.env['acquisition.plan'].search([('state', 'in', ['complaint']),
+                                                            ('complaint_deadline', '=', fields.Date.today())])
+        for plan in active_plans:
+            if plan.state_before_complaint in ['approve', 'archive']:
+                plan.write({'state': 'contract'})
+            elif plan.state_before_complaint in ['cancel']:
+                plan.write({'state': 'done'})
+
     
 class AcquisitionPlanLine(models.Model):
     
