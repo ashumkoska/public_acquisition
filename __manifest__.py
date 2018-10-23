@@ -12,7 +12,8 @@
     'depends': [
         'mail', 
         'purchase',
-        'web_digital_sign'
+        'web_digital_sign',
+        'contract'
     ],
     'data': [
         'data/public_acquisition_data.xml',

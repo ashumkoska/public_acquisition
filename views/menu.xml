@@ -68,17 +68,95 @@
             <field name="sequence" eval="10"/>
         </record>
         
-        <record model="ir.ui.menu" id="public_acquisition_config_menu">
-            <field name="name">Configuration</field>
+        <record model="ir.ui.menu" id="acquisition_contract_main_menu">
+            <field name="name">Contracts</field>
             <field name="parent_id" ref="public_acquisition_main_menu"/>
             <field name="sequence" eval="10"/>
         </record>
         
+        <record model="ir.ui.menu" id="vendor_menu">
+            <field name="name">Vendors</field>
+            <field name="parent_id" ref="acquisition_contract_main_menu"/>
+            <field name="action" ref="base.action_partner_supplier_form"/>
+            <field name="sequence" eval="5"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="acquisition_contract_menu">
+            <field name="name">Contracts</field>
+            <field name="parent_id" ref="acquisition_contract_main_menu"/>
+            <field name="sequence" eval="10"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="products_main_menu">
+            <field name="name">Products</field>
+            <field name="parent_id" ref="public_acquisition_main_menu"/>
+            <field name="sequence" eval="15"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="products_menu">
+            <field name="name">Products</field>
+            <field name="parent_id" ref="products_main_menu"/>
+            <field name="action" ref="purchase.product_normal_action_puchased"/>
+            <field name="sequence" eval="5"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="public_acquisition_config_menu">
+            <field name="name">Configuration</field>
+            <field name="parent_id" ref="public_acquisition_main_menu"/>
+            <field name="sequence" eval="20"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="acquisition_main_config_menu">
+            <field name="name">Acquisitions</field>
+            <field name="parent_id" ref="public_acquisition_config_menu"/>
+            <field name="sequence" eval="5"/>
+        </record>
+        
         <record model="ir.ui.menu" id="acquisition_item_type_menu">
             <field name="name">Acquisition Item Types</field>
-            <field name="parent_id" ref="public_acquisition_config_menu"/>
+            <field name="parent_id" ref="acquisition_main_config_menu"/>
             <field name="action" ref="acquisition_item_type_act_window"/>
             <field name="sequence" eval="5"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="contract_main_config_menu">
+            <field name="name">Contracts</field>
+            <field name="parent_id" ref="public_acquisition_config_menu"/>
+            <field name="sequence" eval="10"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="contract_template_config_menu">
+            <field name="name">Contract Templates</field>
+            <field name="parent_id" ref="contract_main_config_menu"/>
+            <field name="action" ref="contract.account_analytic_contract_action"/>
+            <field name="sequence" eval="5"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="product_main_config_menu">
+            <field name="name">Products</field>
+            <field name="parent_id" ref="public_acquisition_config_menu"/>
+            <field name="sequence" eval="15"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="product_categ_config_menu">
+            <field name="name">Product Categories</field>
+            <field name="parent_id" ref="product_main_config_menu"/>
+            <field name="action" ref="product.product_category_action_form"/>
+            <field name="sequence" eval="5"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="product_uom_config_menu">
+            <field name="name">Units of Measure</field>
+            <field name="parent_id" ref="product_main_config_menu"/>
+            <field name="action" ref="product.product_uom_form_action"/>
+            <field name="sequence" eval="10"/>
+        </record>
+        
+        <record model="ir.ui.menu" id="product_uom_categ_config_menu">
+            <field name="name">Unit of Measure Categories</field>
+            <field name="parent_id" ref="product_main_config_menu"/>
+            <field name="action" ref="product.product_uom_categ_form_action"/>
+            <field name="sequence" eval="15"/>
         </record>
         
     </data>
